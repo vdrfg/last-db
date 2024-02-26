@@ -1,6 +1,8 @@
 package db.last.webapp.services;
 
+import db.last.webapp.dtos.ScrobbleDTO;
 import db.last.webapp.models.Scrobble;
+import db.last.webapp.models.Song;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -11,11 +13,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class FileService {
 
-    public List<Scrobble> csvToScrobbles(String filePath) {
+    public List<ScrobbleDTO> csvToScrobbleDTOs(String filePath) {
         Path path = Paths.get(filePath);
         List<String> csvLines;
 
@@ -27,14 +30,14 @@ public class FileService {
 
         return csvLines.stream()
                 .map(line -> line.split(","))
-                .map(array -> new Scrobble(array[0], array[1], array[2], stringToTimestamp(array[3]))).toList();
+                .map(array -> new ScrobbleDTO(array[0], array[1], array[2], stringToTimestamp(array[3]))).toList();
     }
 
     private Timestamp stringToTimestamp(String dateTime) {
         String pattern = "dd MMM yyyy HH:mm";
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .parseCaseInsensitive().appendPattern(pattern)
-                .toFormatter();
+                .toFormatter(Locale.ENGLISH);
         LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(dateTime));
         return Timestamp.valueOf(localDateTime);
     }

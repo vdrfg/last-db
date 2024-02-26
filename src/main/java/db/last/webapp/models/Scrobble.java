@@ -1,7 +1,6 @@
 package db.last.webapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -10,17 +9,16 @@ import java.sql.Timestamp;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Scrobble {
-    private String artistName;
-    private String albumName;
-    private String songName;
+
     @Id
     private Timestamp scrobbledAt;
+    @ManyToOne
+    private Song song;
 
-    public Scrobble(String artistName, String albumName, String songName, Timestamp scrobbledAt) {
-        this.artistName = artistName;
-        this.albumName = albumName;
-        this.songName = songName;
+    public Scrobble(Song song, Timestamp scrobbledAt) {
+        this.song = song;
         this.scrobbledAt = scrobbledAt;
     }
 }
