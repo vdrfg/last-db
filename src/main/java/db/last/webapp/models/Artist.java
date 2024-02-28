@@ -1,10 +1,13 @@
 package db.last.webapp.models;
 
+import db.last.webapp.models.idGenerator.CustomIdGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +19,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Artist {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
-    @OneToMany
-    private List<Album> albums = new ArrayList<>();
+  @Id
+  @GeneratedValue(generator = "artist_id")
+  @GenericGenerator(
+      name = "artist_id",
+      type = CustomIdGenerator.class,
+      parameters = {@Parameter(name = "prefix", value = "Artist")})
+  private String id;
 
-    public Artist(String name) {
-        this.name = name;
-    }
+  private String name;
+  @OneToMany private List<Album> albums = new ArrayList<>();
 }
