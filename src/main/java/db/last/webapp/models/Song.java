@@ -12,19 +12,26 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Song {
-    @Id
-    @GeneratedValue(generator = "prefixGenerator")
-    @GenericGenerator(
-            name = "prefixGenerator",
-            type = IdPrefixGenerator.class,
-            parameters = {@Parameter(name = "prefixValue", value = "Song")})
-    private String id;
-    private String name;
-    @ManyToMany
-    private List<Album> albums = new ArrayList<>();
-    @ManyToOne
-    private Artist artist;
+  @Id
+  @GeneratedValue(generator = "songPrefixGenerator", strategy = GenerationType.SEQUENCE)
+  @GenericGenerator(
+      name = "songPrefixGenerator",
+      type = IdPrefixGenerator.class,
+      parameters = {
+        @Parameter(name = IdPrefixGenerator.INCREMENT_PARAM, value = "1"),
+        @Parameter(name = IdPrefixGenerator.PREFIX_VALUE_PARAMETER, value = "Song")
+      })
+  private String id;
+
+  private String name;
+
+  @ManyToMany(mappedBy = "songs")
+  @Builder.Default
+  private List<Album> albums = new ArrayList<>();
+
+  @ManyToOne private Artist artist;
 }
