@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "songs")
 public class Song {
   @Id
   @GeneratedValue(generator = "songPrefixGenerator", strategy = GenerationType.SEQUENCE)
@@ -25,6 +26,7 @@ public class Song {
         @Parameter(name = IdPrefixGenerator.INCREMENT_PARAM, value = "1"),
         @Parameter(name = IdPrefixGenerator.PREFIX_VALUE_PARAMETER, value = "Song")
       })
+  //TODO: prefix ID by Artist
   private String id;
 
   private String name;

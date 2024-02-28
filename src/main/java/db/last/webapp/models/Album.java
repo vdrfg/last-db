@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "albums")
 public class Album {
   @Id
   @GeneratedValue(generator = "albumPrefixGenerator", strategy = GenerationType.SEQUENCE)

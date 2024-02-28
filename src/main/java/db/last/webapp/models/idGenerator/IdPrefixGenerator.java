@@ -1,6 +1,5 @@
 package db.last.webapp.models.idGenerator;
 
-import com.sun.jdi.LongType;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

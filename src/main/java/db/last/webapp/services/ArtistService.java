@@ -5,6 +5,7 @@ import db.last.webapp.repositories.ArtistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,10 @@ public class ArtistService {
 
     public Optional<Artist> getArtist(String name) {
         return artistRepository.findByName(name);
+    }
+
+    public List<Artist> getAllArtists() {
+        return artistRepository.findAll();
     }
 
     public boolean existsByName(String name) {
