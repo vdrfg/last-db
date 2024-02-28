@@ -21,6 +21,4 @@ public class Song {
     private List<Album> albums = new ArrayList<>();
     @ManyToOne
     private Artist artist;
-    @OneToMany
-    private List<Scrobble> scrobbles = new ArrayList<>();
 }
