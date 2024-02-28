@@ -1,6 +1,6 @@
 package db.last.webapp.models;
 
-import db.last.webapp.models.idGenerator.CustomIdGenerator;
+import db.last.webapp.models.idGenerator.IdPrefixGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,11 +20,11 @@ import java.util.List;
 public class Artist {
 
   @Id
-  @GeneratedValue(generator = "artist_id")
+  @GeneratedValue(generator = "prefixGenerator")
   @GenericGenerator(
-      name = "artist_id",
-      type = CustomIdGenerator.class,
-      parameters = {@Parameter(name = "prefix", value = "Artist")})
+      name = "prefixGenerator",
+      type = IdPrefixGenerator.class,
+      parameters = {@Parameter(name = "prefixValue", value = "Artist")})
   private String id;
 
   private String name;

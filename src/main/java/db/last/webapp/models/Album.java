@@ -1,6 +1,6 @@
 package db.last.webapp.models;
 
-import db.last.webapp.models.idGenerator.CustomIdGenerator;
+import db.last.webapp.models.idGenerator.IdPrefixGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,12 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Album {
     @Id
-    @GeneratedValue(generator = "album_id")
+    @GeneratedValue(generator = "prefixGenerator")
     @GenericGenerator(
-            name = "album_id",
-            type = CustomIdGenerator.class,
-            parameters = {@Parameter(name = "prefix", value = "Album")})
-    private String id;
+            name = "prefixGenerator",
+            type = IdPrefixGenerator.class,
+            parameters = {@Parameter(name = "prefixValue", value = "Album")})
     private String name;
     @ManyToOne
     private Artist artist;
