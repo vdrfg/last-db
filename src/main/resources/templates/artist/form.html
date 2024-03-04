@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artist Form</title>
+</head>
+<body>
+<form th:action="@{/artists}" th:method="POST">
+    <label class="form-inputs">
+        <input th:field="${artist.name}" required>
+        <input th:field="${artist.startDate}">
+        <input th:field="${artist.endDate}">
+        <input th:field="${artist.country}">
+        <input th:field="${artist.description}" required>
+    </label>
+    <button type="submit"></button>
+</form>
+</body>
+</html>

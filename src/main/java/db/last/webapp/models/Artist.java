@@ -1,11 +1,16 @@
 package db.last.webapp.models;
 
+import db.last.webapp.dtos.ArtistDTO;
 import db.last.webapp.models.idGenerator.IdPrefixGenerator;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +24,7 @@ import java.util.List;
 public class Artist {
 
   @Id
+  @NotNull
   @GeneratedValue(generator = "artistPrefixGenerator", strategy = GenerationType.SEQUENCE)
   @GenericGenerator(
       name = "artistPrefixGenerator",
@@ -29,7 +35,17 @@ public class Artist {
       })
   private String id;
 
-  private String name;
+  @NotNull @NotBlank private String name;
+
+  @NotNull @NotBlank private String description;
+
+  @NotBlank private String country;
+
+  @DateTimeFormat(pattern = "dd-MMM-yyyy")
+  private LocalDate startDate;
+
+  @DateTimeFormat(pattern = "dd-MMM-yyyy")
+  private LocalDate endDate;
 
   @OneToMany(mappedBy = "artist")
   @Builder.Default
@@ -38,4 +54,12 @@ public class Artist {
   @OneToMany(mappedBy = "artist")
   @Builder.Default
   private List<Song> songs = new ArrayList<>();
+
+  public Artist(ArtistDTO artistDTO) {
+    this.name = artistDTO.name();
+    this.description = artistDTO.description();
+    this.country = artistDTO.country();
+    this.startDate = artistDTO.startDate();
+    this.endDate = artistDTO.endDate();
+  }
 }

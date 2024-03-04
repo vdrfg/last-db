@@ -1,5 +1,6 @@
 package db.last.webapp.services;
 
+import db.last.webapp.dtos.ArtistDTO;
 import db.last.webapp.models.Artist;
 import db.last.webapp.repositories.ArtistRepository;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,8 @@ public class ArtistService {
 
     private ArtistRepository artistRepository;
 
-    public Artist save(Artist artist) {
+    public Artist save(ArtistDTO artistDTO) {
+        Artist artist = new Artist(artistDTO);
         return artistRepository.save(artist);
     }
 
