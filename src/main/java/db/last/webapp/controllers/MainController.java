@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class MainController {
 
-    @GetMapping
-    public String index() {
-        return "index";
-    }
+  @GetMapping
+  public String index() {
+    return "index";
+  }
 }
