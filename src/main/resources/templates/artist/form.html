@@ -7,10 +7,15 @@
 <body>
 <form th:action="@{/artists}" th:method="POST">
     <label class="form-inputs">
+        <p>Name</p>
         <input th:field="${artist.name}" required>
-        <input th:field="${artist.startDate}">
-        <input th:field="${artist.endDate}">
+<!--        <p>Start</p>-->
+<!--        <input th:field="${artist.startDate}">-->
+<!--        <p>End</p>-->
+<!--        <input th:field="${artist.endDate}">-->
+        <p>Country</p>
         <input th:field="${artist.country}">
+        <p>Description</p>
         <input th:field="${artist.description}" required>
     </label>
     <button type="submit"></button>

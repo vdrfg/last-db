@@ -1,6 +1,6 @@
 package db.last.webapp.controllers;
 
-import db.last.webapp.dtos.ArtistDTO;
+import db.last.webapp.dtos.ArtistInDTO;
 import db.last.webapp.models.Artist;
 import db.last.webapp.services.ArtistService;
 import jakarta.validation.Valid;
@@ -42,8 +42,8 @@ public class ArtistController {
     }
 
     @PostMapping
-    public String create(@Valid ArtistDTO artistDTO) {
-        Artist artist = artistService.save(artistDTO);
+    public String create(@Valid ArtistInDTO artistInDTO) {
+        Artist artist = artistService.save(artistInDTO);
         return String.format("redirect:/artists/%s", artist.getName());
     }
 }

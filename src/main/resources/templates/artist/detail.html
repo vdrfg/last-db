@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${artist}"></title>
+    <title th:text="${artist.name}"></title>
 </head>
 <body>
 
-<h1 th:text="${artist}"></h1>
-
+<h1 th:text="${artist.name}"></h1>
 <ul th:each="album : ${artist.getAlbums}" th:object="${album}">
-    <li><a th:href="" th:text="${album.name}"></a> </li>
+    <li><a th:href="@{/artists/albums/{artistName}/{albumName}(artistName=${artist.name}, albumName=${album.name})}"
+           th:text="${album.name}"></a> </li>
 </ul>
 </body>
 </html>

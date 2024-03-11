@@ -46,7 +46,7 @@ public class Song {
   @NotNull @ManyToOne private Artist artist;
 
   public Song(Album album, SongDTO songDTO) {
-    this.name = songDTO.name();
+    this.name = songDTO.songName();
     this.albums.add(album);
     this.artist = album.getArtist();
   }

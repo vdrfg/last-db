@@ -8,53 +8,78 @@ import db.last.webapp.services.AlbumService;
 import db.last.webapp.services.ArtistService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@NoArgsConstructor
 @AllArgsConstructor
-@RequestMapping("/artists/album/{artistName}")
+@RequestMapping("/artists/albums/{artistName}")
 public class AlbumController {
 
   private AlbumService albumService;
   private ArtistService artistService;
 
-  @GetMapping("/{albumName]")
-  public String album(@PathVariable String artistName, String albumName, Model model) {
-    Optional<Artist> optArtist = artistService.getArtist(artistName);
-
-    if (optArtist.isEmpty()) {
+  @GetMapping("/{albumName}")
+  public String album(
+      @PathVariable String artistName, @PathVariable String albumName, Model model) {
+    Optional<Album> optAlbum = albumService.getAlbumByArtistAndName(artistName, albumName);
+    if (optAlbum.isEmpty()) {
       return "error";
     }
 
-    Optional<Album> optAlbum = albumService.getAlbumByArtistAndName(optArtist.get(), albumName);
-
-    return optAlbum.isPresent() ? "/album/page" : "error";
+    model.addAttribute("album", optAlbum.get());
+    return "/album/page";
   }
 
   @GetMapping("/new")
   public String create(@PathVariable String artistName, Model model) {
-    model.addAttribute("album", new Album());
+    Optional<Artist> optArtist = artistService.getArtist(artistName);
+    if (optArtist.isPresent()) {
+      model.addAttribute("artist", optArtist.get());
+      model.addAttribute("album", new Album());
+    }
     return "/album/form";
   }
 
-  @PostMapping
-  public String create(@PathVariable String artistName, @Valid AlbumDTO albumDTO, List<@Valid SongDTO> songDTOs) {
-    try {
-      albumService.create(albumDTO, songDTOs);
-    } catch (Exception e) {
-      return "error";
+  @PostMapping("/new")
+  public String create(
+      @PathVariable String artistName, @Valid AlbumDTO albumDTO, List<@Valid SongDTO> songDTOs) {
+    Optional<Artist> optArtist = artistService.getArtist(artistName);
+    if (optArtist.isPresent()) {
+      try {
+        albumService.create(optArtist.get(), albumDTO, songDTOs);
+      } catch (Exception e) {
+        // TODO: add error page
+        return "error";
+      }
     }
     return String.format(
-        "redirect/artists/album/%s/%s", albumDTO.artist().getName(), albumDTO.name());
+        "redirect/artists/album/%s/%s", optArtist.get().getName(), albumDTO.name());
+  }
+
+  @GetMapping("/{albumName}/edit")
+  private String edit(
+      @PathVariable String artistName, @PathVariable String albumName, Model model) {
+    Optional<Album> optAlbum = albumService.getAlbumByArtistAndName(artistName, albumName);
+    if (optAlbum.isEmpty()) {
+      return "error";
+    }
+
+    model.addAttribute("album", optAlbum.get());
+    return "/album/form";
+  }
+
+  @PutMapping("/{albumName}")
+  private String edit(
+      @PathVariable String artistName,
+      @PathVariable String albumName,
+      AlbumDTO albumDTO,
+      List<SongDTO> songDTOs) {
+
+    return null;
   }
 }

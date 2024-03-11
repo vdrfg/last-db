@@ -36,15 +36,17 @@ public class LastDbApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Artist korn = Artist.builder().name("Korn").build();
-    Artist slipknot = Artist.builder().name("Slipknot").build();
+    Artist korn = Artist.builder().name("Korn").description("nu metal band").build();
+    Artist slipknot = Artist.builder().name("Slipknot").description("alt metal band").build();
 
-    artistRepository.saveAll(List.of(korn, slipknot));
+    artistRepository.save(korn);
+    artistRepository.save(slipknot);
 
     Album followTheLeader = Album.builder().name("Follow the Leader").artist(korn).build();
     Album iowa = Album.builder().name("Iowa").artist(slipknot).build();
 
-    albumRepository.saveAll(List.of(followTheLeader, iowa));
+    albumRepository.save(followTheLeader);
+    albumRepository.save(iowa);
 
     Song gotTheLife =
         Song.builder().name("Got the Life").artist(korn).albums(List.of(followTheLeader)).build();
@@ -55,6 +57,9 @@ public class LastDbApplication implements CommandLineRunner {
     Song leftBehind =
         Song.builder().name("Left Behind").artist(slipknot).albums(List.of(iowa)).build();
 
-    songRepository.saveAll(List.of(gotTheLife, seed, disasterpiece, leftBehind));
+    songRepository.save(gotTheLife);
+    songRepository.save(seed);
+    songRepository.save(disasterpiece);
+    songRepository.save(leftBehind);
   }
 }

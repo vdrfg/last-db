@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<form th:action="@{/artists/albums/{artistName}/new(artistName=${artist.name})}" th:method="POST">
+    <label>
+        <input type="hidden" th:value="${artist.id}">
+    </label>
+    <label>Name
+        <input th:field="${album.name}">
+    </label>
+<!--    <label>Release date-->
+<!--        <input th:field="${album.releaseDate}">-->
+<!--    </label>-->
+    <label>
+        <p th:name="number">1</p>
+        <input th:name="songName">
+    </label>
+    <label>
+        <p th:name="number">2</p>
+        <input th:name="songName">
+    </label>
+    <button type="submit">Save</button>
+
+</form>
 
 </body>
 </html>

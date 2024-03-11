@@ -1,6 +1,6 @@
 package db.last.webapp.models;
 
-import db.last.webapp.dtos.ArtistDTO;
+import db.last.webapp.dtos.ArtistInDTO;
 import db.last.webapp.models.idGenerator.IdPrefixGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -39,7 +39,7 @@ public class Artist {
 
   @NotNull @NotBlank private String description;
 
-  @NotBlank private String country;
+  private String country;
 
   @DateTimeFormat(pattern = "dd-MMM-yyyy")
   private LocalDate startDate;
@@ -55,11 +55,11 @@ public class Artist {
   @Builder.Default
   private List<Song> songs = new ArrayList<>();
 
-  public Artist(ArtistDTO artistDTO) {
-    this.name = artistDTO.name();
-    this.description = artistDTO.description();
-    this.country = artistDTO.country();
-    this.startDate = artistDTO.startDate();
-    this.endDate = artistDTO.endDate();
+  public Artist(ArtistInDTO artistInDTO) {
+    this.name = artistInDTO.name();
+    this.description = artistInDTO.description();
+    this.country = artistInDTO.country();
+    this.startDate = artistInDTO.startDate();
+    this.endDate = artistInDTO.endDate();
   }
 }
