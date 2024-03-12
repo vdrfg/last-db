@@ -49,9 +49,9 @@ public class Album {
       inverseJoinColumns = @JoinColumn(name = "song_id"))
   private List<Song> songs = new ArrayList<>();
 
-  public Album(Artist artist, AlbumDTO albumDTO) {
+  public Album(Artist artist, AlbumDTO albumDTO, LocalDate releaseDate) {
     this.artist = artist;
     this.name = albumDTO.name();
-    this.releaseDate = albumDTO.releaseDate();
+    this.releaseDate = releaseDate;
   }
 }

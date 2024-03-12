@@ -12,9 +12,11 @@
     <label>Name
         <input th:field="${album.name}">
     </label>
-<!--    <label>Release date-->
-<!--        <input th:field="${album.releaseDate}">-->
-<!--    </label>-->
+    <label>Release date
+        <select id="year"></select>
+        <select id="month"></select>
+        <select id="day"></select>
+    </label>
     <label>
         <p th:name="number">1</p>
         <input th:name="songName">

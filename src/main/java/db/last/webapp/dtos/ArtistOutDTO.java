@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record ArtistOutDTO(
-    String id,
+    @NotNull String id,
     @NotBlank @NotNull String name,
     @NotBlank @NotNull String description,
     String country,

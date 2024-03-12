@@ -5,10 +5,12 @@ import db.last.webapp.models.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AlbumRepository extends JpaRepository<Album, Long> {
+public interface AlbumRepository extends JpaRepository<Album, String> {
 
     Optional<Album> findByArtist_NameAndName(String artistName, String albumName);
+    List<Album> findAllByArtist(Artist artist);
 }

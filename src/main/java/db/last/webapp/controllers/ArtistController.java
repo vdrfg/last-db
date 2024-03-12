@@ -3,6 +3,7 @@ package db.last.webapp.controllers;
 import db.last.webapp.dtos.ArtistInDTO;
 import db.last.webapp.dtos.ArtistOutDTO;
 import db.last.webapp.models.Artist;
+import db.last.webapp.services.AlbumService;
 import db.last.webapp.services.ArtistService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ArtistController {
   private ArtistService artistService;
+  private AlbumService albumService;
 
   @GetMapping
   public String allArtists(Model model) {
@@ -26,13 +28,14 @@ public class ArtistController {
 
   @GetMapping("/{name}")
   public String artist(@PathVariable String name, Model model) {
-    Optional<Artist> optArtist = artistService.getArtist(name);
-    if (optArtist.isEmpty()) {
+    Optional<Artist> artist = artistService.getArtistByName(name);
+    if (artist.isEmpty()) {
       // TODO: create dynamic error page
       model.addAttribute("error", "error");
       return "artists";
     }
-    model.addAttribute("artist", new ArtistOutDTO(optArtist.get()));
+    model.addAttribute("artist", new ArtistOutDTO(artist.get()));
+    model.addAttribute("albums", albumService.getAllAlbumDTOsByArtist(artist.get()));
     return "/artist/detail";
   }
 
@@ -50,9 +53,9 @@ public class ArtistController {
 
   @GetMapping("/{name}/edit")
   public String edit(@PathVariable String name, Model model) {
-    Optional<Artist> optArtist = artistService.getArtist(name);
-    if (optArtist.isPresent()) {
-      model.addAttribute("artist", new ArtistOutDTO(optArtist.get()));
+    Optional<Artist> artist = artistService.getArtistByName(name);
+    if (artist.isPresent()) {
+      model.addAttribute("artist", new ArtistOutDTO(artist.get()));
       return "artist/form";
     }
     return "error";
@@ -60,7 +63,7 @@ public class ArtistController {
 
   @PutMapping("/{name}")
   public String edit(@PathVariable String name, ArtistInDTO artistDTO) {
-    Optional<Artist> optArtist = artistService.getArtist(name);
+    Optional<Artist> optArtist = artistService.getArtistByName(name);
     if (optArtist.isPresent()) {
       // TODO: add editing method
       return String.format("redirect:/artists/%s", optArtist.get().getName());

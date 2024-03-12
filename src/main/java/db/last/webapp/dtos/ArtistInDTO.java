@@ -10,7 +10,7 @@ public record ArtistInDTO(
     @NotBlank @NotNull String name,
     @NotBlank @NotNull String description,
     String country,
-    LocalDate startDate,
+    LocalDate startDate, // TODO: change to String and convert in service
     LocalDate endDate) {
 
   public ArtistInDTO(

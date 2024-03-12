@@ -7,7 +7,7 @@
 <body>
 
 <h1 th:text="${artist.name}"></h1>
-<ul th:each="album : ${artist.getAlbums}" th:object="${album}">
+<ul th:each="album : ${albums}" th:object="${album}">
     <li><a th:href="@{/artists/albums/{artistName}/{albumName}(artistName=${artist.name}, albumName=${album.name})}"
            th:text="${album.name}"></a> </li>
 </ul>
