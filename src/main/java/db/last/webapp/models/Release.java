@@ -36,9 +36,12 @@ public class Release {
 			})
 	private String id;
 
+	@Enumerated(EnumType.STRING)
+	private ReleaseType type;
+
 	@NotNull @NotBlank private String name;
 
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MMM-dd")
 	private LocalDate releaseDate;
 
 	@NotNull @ManyToMany private List<Artist> artist = new ArrayList<>();
