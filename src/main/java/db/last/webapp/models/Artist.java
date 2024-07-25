@@ -36,8 +36,8 @@ public class Artist {
 	@NonNull @NotBlank
 	private String name;
 
-	@ElementCollection // TODO: change once albums exist
-	private List<String> albums = new ArrayList<>();
+	@ManyToMany
+	private List<Release> releases = new ArrayList<>();
 
 	@ElementCollection // TODO: change once songs exist
 	private List<String> songs = new ArrayList<>();
