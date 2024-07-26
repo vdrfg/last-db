@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,15 +20,15 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "albums")
+@Table(name = "releases")
 public class Release {
 	@Id
 	@NotNull
-	@GeneratedValue(generator = "albumPrefixGenerator", strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator = "releasePrefixGenerator", strategy = GenerationType.SEQUENCE)
 	@GenericGenerator(
-			name = "albumPrefixGenerator",
+			name = "releasePrefixGenerator",
 			parameters = {
-					@Parameter(name = "sequence_name", value = "album_seq"),
+					@Parameter(name = "sequence_name", value = "release_seq"),
 					@Parameter(name = "initial_value", value = "1"),
 					@Parameter(name = "increment_size", value = "1"),
 					@Parameter(name = "optimizer", value = "none"),
@@ -39,13 +40,14 @@ public class Release {
 	@Enumerated(EnumType.STRING)
 	private ReleaseType type;
 
-	@NotNull @NotBlank private String name;
+	@NotNull
+	@NotBlank
+	private String name;
 
-	@DateTimeFormat(pattern = "yyyy-MMM-dd")
-	private LocalDate releaseDate;
+	@NotNull
+	@ManyToMany
+	private List<Artist> artist = new ArrayList<>();
 
-	@NotNull @ManyToMany private List<Artist> artist = new ArrayList<>();
-
-	@OneToMany
-	private List<Track> tracklist = new ArrayList<>();
+	@OneToMany(mappedBy = "release", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ReleaseVersion> versions;
 }

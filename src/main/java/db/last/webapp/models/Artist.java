@@ -6,7 +6,9 @@ import java.util.List;
 import db.last.webapp.models.idGenerator.IdPrefixGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -33,7 +35,8 @@ public class Artist {
 			})
 	private String id;
 
-	@NonNull @NotBlank
+	@NotNull
+	@NotBlank
 	private String name;
 
 	@ManyToMany

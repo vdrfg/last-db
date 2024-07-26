@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -34,7 +35,8 @@ public class Song {
 			})
 	private String id;
 
-	@NotNull @NotBlank
+	@NotNull
+	@NotBlank
 	private String name;
 
 	@ManyToMany

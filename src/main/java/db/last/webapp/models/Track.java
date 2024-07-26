@@ -1,17 +1,17 @@
 package db.last.webapp.models;
 
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Track {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private int trackNumber;
@@ -23,4 +23,8 @@ public class Track {
 
 	@ManyToOne
 	private Release release;
+
+	@ManyToOne
+	@JoinColumn(name = "release_version_id")
+	private ReleaseVersion releaseVersion;
 }
