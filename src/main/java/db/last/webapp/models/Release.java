@@ -46,7 +46,6 @@ public class Release {
 
 	@NotNull @ManyToMany private List<Artist> artist = new ArrayList<>();
 
-	@ElementCollection // TODO: change to songs
-	private List<String> tracklist = new ArrayList<>();
-
+	@OneToMany
+	private List<Track> tracklist = new ArrayList<>();
 }
