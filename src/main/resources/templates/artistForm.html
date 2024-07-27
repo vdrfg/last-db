@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Artist</title>
+</head>
+<body>
+<h1>Create Artist</h1>
+<form action="/create" method="post">
+    <label for="firstName">First Name:</label><br>
+    <input type="text" id="firstName" name="firstName" required><br>
+    <label for="lastName">Last Name:</label><br>
+    <input type="text" id="lastName" name="lastName" required><br>
+    <label for="beginDate">Begin Date:</label><br>
+    <input type="date" id="beginDate" name="beginDate" required><br>
+    <label for="endDate">End Date:</label><br>
+    <input type="date" id="endDate" name="endDate" required><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" required></textarea><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

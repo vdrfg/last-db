@@ -1,5 +1,6 @@
 package db.last.webapp.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +38,21 @@ public class Artist {
 
 	@NotNull
 	@NotBlank
-	private String name;
+	private String firstName;
+
+	@NotNull
+	@NotBlank
+	private String lastName;
+
+	private LocalDate startDate;
+
+	private LocalDate endDate;
+
+	private String description;
 
 	@ManyToMany
 	private List<Release> releases = new ArrayList<>();
 
-	@ElementCollection // TODO: change once songs exist
-	private List<String> songs = new ArrayList<>();
+	@ManyToMany
+	private List<Song> songs = new ArrayList<>();
 }
